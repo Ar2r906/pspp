@@ -1,27 +1,11 @@
 const { Sequelize } = require('sequelize');
-const config = require('./config/dbconfig');
 
-const sequelize = new Sequelize(
-    config.DB, config.USER, config.PASSWORD, 
-    {
-        host: config.HOST,
-        dialect: config.dialect,
-        port: config.PORT,
-        opeartionsAliases: false,
-
-        pool: {
-            max: config.pool.max,
-            min:  config.pool.min,
-            acquire: config.pool.acquire,
-            idle: config.pool.idle,
-        }
-    }
-);
+const sequelize = new Sequelize('postgres://postgres:asdF0987@localhost:5432/sps');
 
 async function connect() {
     try {
-        await sequelize.authenticate()
         console.log('DataBase connection has been established successfully');
+        await sequelize.authenticate()
     } 
     catch (error) {
         console.log(`error: ${error}`);

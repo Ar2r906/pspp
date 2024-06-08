@@ -12,9 +12,6 @@ const auth = sequelize.define(
         uid: {
             type: DataTypes.UUID,
         },
-        role: {
-            type: DataTypes.TEXT,
-        },
         AccessToken: {
             type: DataTypes.TEXT,
         },
@@ -27,8 +24,11 @@ const auth = sequelize.define(
         email: {
             type: DataTypes.TEXT,
         },
-        name: {
+        role: {
             type: DataTypes.TEXT,
+        },
+        name: {
+            type: DataTypes.TEXT
         },
     },
     {
