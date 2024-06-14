@@ -1,6 +1,9 @@
 <template>
   <nav>
-    <a href="/" class="logo"><img src="" alt="logotype"></a>
+    <div class="logotype">
+      <a href="/" class="logo"><img src="./assets//image/Logotype.svg" alt="logotype"></a>
+    </div>
+    
     <div class="links">
       <router-link class="link" to="/">Главная</router-link>
       <router-link class="link" to="/register" v-if="!isAuth">Регистарция</router-link>
@@ -19,7 +22,7 @@ import store from './store';
 export default {
   methods: {
     ...mapActions({
-      logout: 'auth/logaut'
+      logout: 'auth/logout'
     })
   },
   mounted() {
@@ -48,29 +51,30 @@ body {
   background-color: #d9d9d9;
 }
 nav {
+  height: 15dvh;
   padding: 0 2dvh;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   margin-left: auto;
   padding-right: 1dvw;
-  color: #000;
 }
 .link {
-  
+  margin-top: auto;
+  margin-bottom: 1dvh;
 }
 .links {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  align-items: end;
   column-gap: 3dvw;
-  background-color: #000;
-  border: 1px solid #000;
+  background-color: #303030;
+  /* border: 1px solid #303030; */
   border-radius: 0 0 15px 15px;
-  padding: 0 3dvw 0 3dvw;
-  padding-top: 3dvh;
+  padding: 0 2dvw 0 2dvw;
+  margin-bottom: 10dvh;
 }
-.logo{
+.logotype {
   justify-content: start;
   align-items: start;
   height: 6dvh;
@@ -90,6 +94,11 @@ nav a{
   margin-bottom: auto;
 }
 nav a:hover {
-  color: #402FFF;
+  color: #000;
+}
+.links:hover {
+  margin-bottom: 6dvh;
+  transition: 0.8s;
+  background-color:#402FFF;
 }
 </style>

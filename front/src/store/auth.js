@@ -39,7 +39,7 @@ export default {
         async register({ }, { role, name, email, password }) {
             const data = JSON.stringify({ role, name, email, password })
             console.log(data);
-            const response = await fetch(`${process.env.VUE_APP_SERVER}/api/auth/register`, {
+            const response = await fetch(`${process.env.VUE_APP_SERVER}/api/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -60,7 +60,7 @@ export default {
                 email, password 
             });
             console.log(data);
-            const response = await fetch(`${process.env.VUE_APP_SERVER}/api/auth/login`, {
+            const response = await fetch(`${process.env.VUE_APP_SERVER}/api/auth/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
