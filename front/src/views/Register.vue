@@ -21,6 +21,7 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
+    name: 'register',
     data() {
         return {
             role: 'intern',

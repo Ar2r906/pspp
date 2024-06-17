@@ -1,5 +1,6 @@
 import instance from '@/middlewares'
 import router from '@/router'
+const path = process.env.VUE_APP_SERVER;
 
 const checkStatuses = (status) => {
     switch (status) {
@@ -39,7 +40,7 @@ export default {
         async register({ }, { role, name, email, password }) {
             const data = JSON.stringify({ role, name, email, password })
             console.log(data);
-            const response = await fetch(`${process.env.VUE_APP_SERVER}/api/auth/signup`, {
+            const response = await fetch(`${path}/api/auths/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -48,9 +49,7 @@ export default {
             })
             
             if(!checkStatuses(response.status)) return
-
             window.alert('Вы успешно зарегистрированы! Теперь авторизуйтесь')
-
             router.push('/login')
             return
         },
@@ -60,7 +59,7 @@ export default {
                 email, password 
             });
             console.log(data);
-            const response = await fetch(`${process.env.VUE_APP_SERVER}/api/auth/signin`, {
+            const response = await fetch(`${path}/api/auths/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -76,13 +75,15 @@ export default {
             localStorage.setItem('refreshToken', result.refreshToken)
             localStorage.setItem('uid', result.uid)
             localStorage.setItem('role', result.role)
+            localStorage.setItem('name', result.name)
+            localStorage.setItem('email', result.email)
             
-            router.push(`/${result.role}`)
+            router.push('/')
             return 
         },
 
         async changeAccess({ }) {
-            const response = await instance.post('/api/auth/change-access', {
+            const response = await instance.post('/api/auths/change-access', {
                 headers: {
                     'x-refresh-token': localStorage.getItem('refreshToken')
                 }
@@ -98,7 +99,7 @@ export default {
             localStorage.removeItem('uid')
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
-            router.push('/login')
+            router.push('/home')
             return
         }
     }

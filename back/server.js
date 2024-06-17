@@ -9,11 +9,10 @@ const users_routes  = require('./routes/routes_users');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const options = {
-    origin: ['http://localhost:8080'],
-}
+app.use(cors({
+    origin: ['http://localhost:8080']
+}))
 
-app.use(cors(options));
 app.use('/api/auths', auths_routes);
 app.use('/api/users', users_routes);
 
@@ -21,7 +20,7 @@ app.use((error, req, res, next) => {
     if (error instanceof SyntaxError)
         res.status(400).send({ message: 'Invalid data'})
     else 
-        next(error);
+        next();
 });
 
 app.listen(port, () => {

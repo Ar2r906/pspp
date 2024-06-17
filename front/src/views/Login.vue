@@ -14,11 +14,13 @@
 import { mapActions } from 'vuex';
 
 export default {
+    name: 'login',
     data() {
         return {
             email: '',
-            password: ''
-        }
+            password: '',
+            name: ''
+        };
     },
     methods: {
         ...mapActions({

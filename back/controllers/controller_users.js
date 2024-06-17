@@ -1,20 +1,18 @@
 const { user } = require('../models/users')
 
-const getUserByUid = async(req, res) => {
+const getUserByUid = async(request, response) => {
     try {
+        console.log(`request.userUid: ${request.userUid}`)
         const currentUser = await user.findOne({
-            where: {uid: req.userUid}
-        });
 
-        if(!currentUser) { return res.status(404).send('User not found'); }
-    
-        return res.status(200).send({
-            currentUser: currentUser
+            where: { uid: request.userUid }
+
         })
+        if(!currentUser) return response.status(404).send({message: 'XUY'})
+        return response.send(currentUser)
     } catch (error) {
-        return res.ststus(500).send({
-            message: 'Server error',
-            error: error,
+        return response.ststus(500).send({ 
+            message: error.message 
         })
     }
 }

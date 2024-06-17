@@ -9,6 +9,7 @@
       <router-link class="link" to="/register" v-if="!isAuth">Регистарция</router-link>
       <router-link class="link" to="/login" v-if="!isAuth">Вход</router-link>
       <router-link class="link" to="/profile" v-if="isAuth">Профиль</router-link>
+      <router-link class="link" to="/calendar" v-if="isAuth">Календарь</router-link>
       <router-link class="link" to="/" v-if="isAuth" @click="logout()" >Выход</router-link>
     </div>
   </nav>
@@ -52,12 +53,11 @@ body {
 }
 nav {
   height: 15dvh;
-  padding: 0 2dvh;
+  /* padding: 0 2dvw 0 auto; */
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  margin-left: auto;
-  padding-right: 1dvw;
+  position: fixed;
+  
 }
 .link {
   margin-top: auto;
@@ -72,14 +72,14 @@ nav {
   /* border: 1px solid #303030; */
   border-radius: 0 0 15px 15px;
   padding: 0 2dvw 0 2dvw;
-  margin-bottom: 10dvh;
+  margin: 0 2dvw 10dvh 2dvw;
 }
 .logotype {
   justify-content: start;
   align-items: start;
   height: 6dvh;
   padding-top: 2dvh;
-  padding-left: 0;
+  padding-left: 2dvw;
   margin-right: auto;
 }
 .logo :hover {

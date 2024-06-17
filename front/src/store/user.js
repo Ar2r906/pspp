@@ -1,4 +1,5 @@
 import instance from "@/middlewares";
+import axios from "axios";
 
 export default {
     name: 'user',
@@ -13,9 +14,20 @@ export default {
     },
     actions: {
         async getUserByUid({ commit }) {
-            const user = await instance.get('/api/users')
-            if(user) return commit('setUser', user.data)
-            console.log(user.message);
+            try {
+                const user = await instance.get(`/api/users`)
+                if(user) return commit('setUser', user.data)
+                console.log(user.message);
+            } catch (error) {
+                console.log(error);
+            }
+            
+        }
+        
+    },
+    getters: {
+        getUser(state) {
+            return state.user;
         }
     }
 }

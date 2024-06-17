@@ -45,14 +45,14 @@ exports.signin = async (req, res) => {
         })
 
         if(!user) {
-            return res.status(403).send({ error: 'Invalid data' })
+            return res.status(404).send({ error: 'User not found' })
         }
         var passwordIsValid = bcrypt.compareSync(
             req.body.password,
             user.password
         )
         if(!passwordIsValid)  {
-            return res.status(403).send({ error: 'Invalid data'  })
+            return res.status(414).send({ error: 'password not valid'  })
         }
 
         const token = createAccess(user.uid)
@@ -65,32 +65,33 @@ exports.signin = async (req, res) => {
         console.log({ message: `User ${user.email} signin` })
 
         return res.status(200).send({
-            Message: 'Signin',
-            Uid: user.uid,
-            AccessToken: token,
-            RefreshToken: token_refresh,
-            Name: user.name,
-            Email: user.email,
-            Role: user.role
+            message: 'Signin',
+            uid: user.uid,
+            accessToken: token,
+            refreshToken: token_refresh,
+            name: user.name,
+            email: user.email,
+            role: user.role
         })
     } catch (error) {
         return res.ststus(500).send({
-            error: 'Server error',
+            message: error.message
         })
     }
 }
 
 exports.changeAccess = async(req, res) => {
+    let token_refresh = req.body.headers['x-refresh-token']
     try {
         const { uid } = jwt.verify(token_refresh, secret)
         const currentUser = await auth.findOne({
             where: {uid: uid}
         })
 
-        if(!currentUser) { return res.status(404).send({message: 'User not found'}) }
+        if(!currentUser) return res.status(404)
 
         const token = createAccess(currentUser.uid)
-        const token_refresh = createRefresh(currentUser.uid)
+        token_refresh = createRefresh(currentUser.uid)
 
         await auth.update({AccessToken: token, RefreshToken: token_refresh},
             {where: {uid: currentUser.uid}}
